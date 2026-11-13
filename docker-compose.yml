@@ -1,0 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cv-analyzer-app
+    # Seguridad: Enlazar a localhost para evitar exposición accidental en red local o pública
+    ports:
+      - "127.0.0.1:8501:8501"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    security_opt:
+      - no-new-privileges:true
+    command: streamlit run app/intermedio/cv_analyzer/app.py --server.address=0.0.0.0 --server.port=8501
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: cv-analyzer-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cv_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cv_password}
+      POSTGRES_DB: ${POSTGRES_DB:-cv_db}
+    # Seguridad: Enlazar puerto únicamente a la interfaz de loopback local
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_cv_data:/var/lib/postgresql/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cv_user} -d ${POSTGRES_DB:-cv_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_cv_data:

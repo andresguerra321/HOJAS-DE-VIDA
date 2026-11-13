@@ -1,0 +1,26 @@
+# Framework UI
+streamlit>=1.35.0
+
+# Procesamiento de documentos PDF
+pypdf>=4.0.0
+PyPDF2>=3.0.0
+
+# LangChain y modelos LLM
+langchain>=1.0.0
+langchain-core>=1.0.0
+langchain-openai>=1.0.0
+langchain-google-genai>=4.0.0
+
+# Validación y modelos de datos
+pydantic>=2.5.0
+pydantic-core>=2.14.0
+
+# Configuración y utilidades
+python-dotenv>=1.0.0
+requests>=2.31.0
+reportlab>=4.0.0
+
+# Pruebas automatizadas
+pytest>=8.0.0
+
+

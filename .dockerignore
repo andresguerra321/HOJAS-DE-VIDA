@@ -1,0 +1,28 @@
+# Ignorar archivos de secretos y variables de entorno (CRÍTICO)
+.env
+.env.*
+.streamlit/secrets.toml
+
+# Ignorar archivos de control de versiones
+.git/
+.gitignore
+
+# Ignorar archivos temporales de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+
+# Ignorar entornos virtuales
+.venv/
+venv/
+ENV/
+
+# Ignorar bases de datos y volúmenes locales
+*.sqlite3
+*.db
+postgres_data/
+
+# Logs y volcados
+*.log
+
